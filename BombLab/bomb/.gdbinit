@@ -12,12 +12,13 @@ b phase_6
 
 b phase_defused
 command
-jump *(phase_defused + 0x7b)
+    return
 end
 
 #为了防止炸弹爆炸，直接跳过
 b explode_bomb
 command
-    set $rsp = $rsp + 8
     return
 end
+
+r
