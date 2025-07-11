@@ -1,3 +1,4 @@
+#include <stdio.h>
 /* This function marks the start of the farm */
 int start_farm()
 {
@@ -220,4 +221,11 @@ void setval_350(unsigned *p)
 int end_farm()
 {
     return 1;
+}
+
+int main() {
+    unsigned x = 190;
+    x = addval_190(x);
+    printf("Result of addval_190: %d\n", (int)x);
+    return 0;
 }
