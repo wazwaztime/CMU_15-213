@@ -1,0 +1,42 @@
+#Wang Anzhe
+.pos 0
+init: 
+    irmovq stack, %rsp
+    irmovq src, %rdi  
+    irmovq dest, %rsi
+    irmovq $3, %rdx
+    call copy_block  
+    halt
+
+copy_block:
+    irmovq $8,%r8
+    irmovq $1,%r9
+    xorq %rax,%rax
+    andq %rdx, %rdx
+    jle done
+loop:
+    mrmovq (%rdi), %r10
+    rmmovq %r10, (%rsi)
+    addq %r8, %rdi
+    addq %r8, %rsi
+    xorq %r10, %rax
+    subq %r9, %rdx
+    andq %rdx, %rdx
+    jg loop
+done:
+    ret
+
+.align 8
+# Source block
+src:
+    .quad 0x00a
+    .quad 0x0b0
+    .quad 0xc00
+# Destination block
+dest:
+    .quad 0x111
+    .quad 0x222
+    .quad 0x333
+
+.pos 0x200
+stack: 

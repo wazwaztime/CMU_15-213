@@ -1,0 +1,36 @@
+0x000:                      | .pos 0
+0x000:                      | init: 
+0x000: 30f40002000000000000 |     irmovq stack, %rsp
+0x00a: 30f75000000000000000 |     irmovq ele1, %rdi  
+0x014: 801e00000000000000   |     call rsum_list  
+0x01d: 00                   |     halt
+                            | 
+0x01e:                      | rsum_list:
+0x01e:                      | check: 
+0x01e: 6277                 |     andq %rdi, %rdi
+0x020: 734d00000000000000   |     je end
+0x029:                      | sum:
+0x029: 50a70000000000000000 |     mrmovq 0(%rdi), %r10
+0x033: a0af                 |     pushq %r10
+0x035: 50770800000000000000 |     mrmovq 8(%rdi), %rdi
+0x03f: 801e00000000000000   |     call rsum_list
+0x048: b0af                 |     popq %r10
+0x04a: 60a0                 |     addq %r10, %rax
+0x04c: 90                   |     ret
+0x04d:                      | end:
+0x04d: 6300                 |     xorq %rax, %rax
+0x04f: 90                   |     ret
+                            | 
+0x050:                      | .align 8
+0x050:                      | ele1:
+0x050: 0a00000000000000     |     .quad 0x00a
+0x058: 6000000000000000     |     .quad ele2
+0x060:                      | ele2:
+0x060: b000000000000000     |     .quad 0x0b0
+0x068: 7000000000000000     |     .quad ele3
+0x070:                      | ele3:
+0x070: 000c000000000000     |     .quad 0xc00
+0x078: 0000000000000000     |     .quad 0
+                            | 
+0x200:                      | .pos 0x200
+0x200:                      | stack: 

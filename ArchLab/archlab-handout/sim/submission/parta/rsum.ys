@@ -1,0 +1,37 @@
+#Wang Anzhe
+.pos 0
+init: 
+    irmovq stack, %rsp
+    irmovq ele1, %rdi  
+    call rsum_list  
+    halt
+
+rsum_list:
+check: 
+    andq %rdi, %rdi
+    je end
+sum:
+    mrmovq 0(%rdi), %r10
+    pushq %r10
+    mrmovq 8(%rdi), %rdi
+    call rsum_list
+    popq %r10
+    addq %r10, %rax
+    ret
+end:
+    xorq %rax, %rax
+    ret
+
+.align 8
+ele1:
+    .quad 0x00a
+    .quad ele2
+ele2:
+    .quad 0x0b0
+    .quad ele3
+ele3:
+    .quad 0xc00
+    .quad 0
+
+.pos 0x200
+stack: 

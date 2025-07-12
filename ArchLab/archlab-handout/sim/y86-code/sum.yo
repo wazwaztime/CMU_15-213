@@ -1,0 +1,36 @@
+0x000:                      | .pos 0
+0x000:                      | init: 
+0x000: 30f40002000000000000 |     irmovq stack, %rsp
+0x00a: 30f75800000000000000 |     irmovq ele1, %rdi  
+0x014: 801e00000000000000   |     call sum_list  
+0x01d: 00                   |     halt
+                            | 
+0x01e:                      | sum_list:
+0x01e:                      | sum: 
+0x01e: 6388                 |     xorq %r8, %r8
+0x020: 6277                 |     andq %rdi, %rdi
+0x022: 704500000000000000   |     jmp check
+0x02b:                      | loop: 
+0x02b: 50a70000000000000000 |     mrmovq 0(%rdi), %r10
+0x035: 50b70800000000000000 |     mrmovq 8(%rdi), %r11
+0x03f: 60a8                 |     addq %r10, %r8
+0x041: 20b7                 |     rrmovq %r11, %rdi
+0x043: 6277                 |     andq %rdi, %rdi
+0x045:                      | check: 
+0x045: 742b00000000000000   |     jne loop
+0x04e: 2080                 |     rrmovq %r8, %rax
+0x050: 90                   |     ret
+                            | 
+0x058:                      | .align 8
+0x058:                      | ele1:
+0x058: 0a00000000000000     |     .quad 0x00a
+0x060: 6800000000000000     |     .quad ele2
+0x068:                      | ele2:
+0x068: b000000000000000     |     .quad 0x0b0
+0x070: 7800000000000000     |     .quad ele3
+0x078:                      | ele3:
+0x078: 000c000000000000     |     .quad 0xc00
+0x080: 0000000000000000     |     .quad 0
+                            | 
+0x200:                      | .pos 0x200
+0x200:                      | stack: 
